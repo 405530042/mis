@@ -3,29 +3,25 @@ require('connect.php');
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!isset($_POST['password']) || trim($_POST['password']) == ''){
         echo 'password_empty';
-    }else if (!isset($_POST['user']) || trim($_POST['user']) == ''){
+    }else if (!isset($_POST['username']) || trim($_POST['username']) == ''){
         echo 'username_empty';
     }else{
-        $user = $_POST['user'];
+        $user = $_POST['username'];
         $password = $_POST['password'];
-        $query=mysql_query("select account from members where password like '$password' AND account like '$user'");
-        $r = mysql_num_rows($query);
-        if($r == 1){
+        $query=mysqli_query($conn,"select * from member where password like '$password' AND number like '$user'");
+        $rows = mysqli_num_rows($query);
+        if($rows == 1){
             session_start();
             $_SESSION['login_user']=$user;
-            echo 'ok';
+            header("Location:./success.php");
         }
         else {
-            $query=mysql_query("select * from members where account like '$user'");
-            $r = mysql_num_rows($query);
-            if($r == 1){
-                echo 'pd_error';
-            }
-            else{
-                echo 'not_exist';
-            }
+
+                header("Location:./error.php");
+             
+            
         }
-        mysql_close($connection);
+        mysqli_close($conn);
     }
 }
 ?>
