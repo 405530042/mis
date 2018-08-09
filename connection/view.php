@@ -29,9 +29,15 @@ else{
     ?>
     <div class="nav">
 <ul>
+	<?php if($user_id!=3){?>
+		<li><a href="login.html">登入</a></li>
+		<?php
+}
+else{?>
 	<li><a href="profile.php">隊伍檔案</a></li>
 	<li><a href="update.php">上傳檔案</a></li>
-	<li></li>
+	<li><a href="./connect/logout.php">登出</a></li>
+	<?php }?>
 </ul>
 </div>
 <?php

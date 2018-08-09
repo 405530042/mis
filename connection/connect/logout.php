@@ -1,6 +1,7 @@
 <?php
 session_start();
 if(session_destroy()){
-    header("location: ./view.php");
-}
+	echo "已登出";
+    header("refresh:2;url=../view.php");
+	}
 ?>
