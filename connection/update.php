@@ -14,10 +14,10 @@ else{
 </head>
 <body>
 <form action="up.php" enctype="multipart/form-data" method="post">
-檔案名稱:<br /> <input type="text" name="name" value="" /><br />
-<br /> <input type="file" id="file" name="file" accept=".pdf"  value="" /><br />
+檔案名稱:<br /> <input type="text" name="name" value="" required /><br />
+<br /> <input type="file" id="file" name="file" accept=".pdf"  value=""  required /><br />
 <textarea name="intro"></textarea>
-  <input type="submit" name="submit" value="Submit Notes" />
+  <input type="submit" name="submit" value="送出" />
 </form>
 </body>
 </html>

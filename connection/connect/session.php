@@ -9,12 +9,23 @@ $user_id=$row['authentication'];
 $account=$row['number'];
 $name=$row['name'];
 $team=$row['team'];
+$edit_success='';
 
-// else if(isset($_POST['edit'])){
-//     $article_id = $_POST['edit'];
-//     $_SESSION['revision']=$article_id;
-//     header("location: edit/editarticle.php");
-// }
+if(isset($_POST['edit'])){
+    $_SESSION['article_id'] = $_POST['edit'];
+  	header("location: ./edit/edit_article.php");
+}
+
+//編輯成功
+ else if(isset($_POST['edited'])){
+  $article_id=$_POST['article_id'];
+  $intro=$_POST['edited'];
+  $edited=mysqli_query($conn,"update update_data SET intro ='$intro' where id like '$article_id'");
+ $edit_success=1;
+ 		header("location: ../view.php");
+}
+
+
 // else if(isset($_POST['delete'])){
 //     $article_id = $_POST['delete'];
 //     $article_query = mysql_query("select * from articles where id='$article_id'");

@@ -15,7 +15,7 @@ require('./connect/session.php');
  		  $rows=mysqli_num_rows($query);
  			if($rows==0){
 				 $time=date("Y-m-d h:i:sa");
- 				$query =mysqli_query($conn,"insert into update_data(file_name,intro,time) values('$name','$introduction','$time')"); 
+ 				$query =mysqli_query($conn,"insert into update_data(file_name,intro,team,time) values('$name','$introduction','$team','$time')"); 
  				echo '<p>上傳成功</p>';
  				header("refresh:1.5;url=./view.php");
  				

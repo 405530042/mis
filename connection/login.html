@@ -1,92 +1,201 @@
 <!DOCTYPE html>
 
 <html>
+
 <head>
-	<meta charset="UTF-8">
-	<title>國立中正大學資訊管理學系</title>
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>國立中正大學資訊管理學系</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft JhengHei';
+            outline: none;
+        }
+
+        body {
+            background: #bee6e6;
+        }
+
+        .text-group {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .text-group > h1 {
+            font-weight: normal;
+        }
+
+        .form-group, .form-group > * {
+            width: 100%;
+        }
+
+        #page {
+            width: 100%;
+            max-width: 360px;
+            margin: 50px auto;
+        }
+
+        #container {
+            padding: 30px;
+            background: #fafafa;
+            border-top: 6px solid #00adb5;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0px 1px 4px -1px #666;
+            color: #364e5a;
+        }
+
+        #errorlogin {
+            color: #f00 !important;
+        }
+
+        input {
+            margin-bottom: 25px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, .2);
+            border: 1px solid #a6a6a6;
+            border-radius: 3px;
+            color: #364e5a;
+            font-size: 16px;
+            line-height: 20px;
+        }
+
+        input:focus {
+            border-color: #666;
+        }
+
+        button {
+            margin-bottom: 25px;
+            padding: 12px 20px;
+            background: #00adb5;
+            border: 1px solid #00adb5;
+            border-radius: 3px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 20px;
+            transition: .2s;
+        }
+
+        button:hover {
+            background: #14969b;
+        }
+
+    </style>
 </head>
+
 <body>
-	<div id="page">
-		<div id="header">
-			
-		<div id="loginpage_header">
+    <div id="page">
+        <div id="header">
+            <div id="loginpage_header"> </div>
+        </div>
 
-		</div>
-		<div id="loginpage_body">
-			<div id="content"> <p></p> <p></p> <p></p>
-				<h1>人員登錄系統</h1>
-				<form action="./connect/login.php" method="post" name="logincheck">
+        <div id="container">
+            <div id="loginpage_body">
+                <div id="content">
+                    <div class="text-group">
+                        <h1>
+                            人員登錄系統
+                        </h1>
+                    </div>
 
-					<label for="number"><span>account</span></label>
-					<span>
-                    	<input type="test" class="form-control" id="number" name="username" placeholder="account" required>
-					</span>  
-<br></br>
-					<label for="password"><span>password</span></label>
-					<span>
-						<input type="password" class="form-control" id="password" name="password" placeholder="enter your password" required>
-					</span>
-<br></br>
-					<span><button class="button" id="send" name="submit" >LOG IN</button></span>
+                    <form action="./connect/login.php" method="post" name="logincheck">
+                        <!-- <label for="number">
+                            <span>
+                                account
+                            </span>
+                        </label> -->
 
-				</form>
-				<span id="errorlogin" style="color:red;"></span>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="number" name="username" placeholder="Username" required>
+                        </div>
+
+                        <!-- <label for="password">
+                            <span>
+                                password
+                            </span>
+                        </label> -->
+
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="button" id="send" name="submit" >
+                                LOG IN
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <span id="errorlogin"></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
 
-                <p></p> <p></p> <p></p><p></p> <p></p> <p></p><p></p> <p></p> <p></p><p></p> <p></p>
-
-			</div>
-		</div>
-		<div id="footer">
-
-			<p>
-Management of Information System &copy; 2018  | All Rights Reserved<br>
-62102 嘉義縣民雄大學路一段168號 &nbsp;&nbsp;資訊管理系</br></p>
-		</div>
-	</div>
+            <div id="loginpage_footer">
+                <div class="text-group">
+                    Management of Information System &copy; 2018
+                    <br> All Rights Reserved
+                    <br> 62102 嘉義縣民雄大學路一段168號
+                    <br> 國立中正大學 資訊管理學系
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-<script>
-        var user = document.forms["logincheck"]["username"].value,/*宣告變數*/
-        pd = document.forms["logincheck"]["password"].value;
-        user = user.replace(/'/g,"");
-        pd = pd.replace(/'/g,"");
-        var toalarm = false;
-        var ch;
-        var stralarm = new Array("<",">","!");
 
-         login_checkf=()=>{                                  /*button執行事件*/            
-                for(var j=0;j<pd.length;j++){
-                    ch= pd.substr(j,1);
-                    if(ch == stralarm[i]){
-                        toalarm = true;
+<script>
+    /* 宣告變數 */
+    var user = document.forms["logincheck"]["username"].value,
+        pd = document.forms["logincheck"]["password"].value;
+
+    user = user.replace(/'/g, "");
+    pd = pd.replace(/'/g, "");
+
+    var toalarm = false;
+    var ch;
+    var stralarm = new Array("<", ">", "!");
+
+    login_checkf = () => {                                  /*button執行事件*/
+        for (var j = 0; j < pd.length; j++) {
+            ch = pd.substr(j, 1);
+            if (ch == stralarm[i]) {
+                toalarm = true;
+            }
+        }
+        if (toalarm) {
+            $("#errorlogin").html('請勿輸入特殊字元');
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "./login.php",
+                data: "&password=" + pd,
+                success: function (ans) {
+                    if (ans == "ok") { alert('123'); }
+                    else if (ans == "pd_empty" || ans == "email_empty") {
+                        $("#errorlogin").html('輸入帳號及密碼');
+                    }
+                    else if (ans == "pd_error") {
+                        $("#errorlogin").html('帳號密碼錯誤');
+                    }
+                    else if (ans == "not_exist") {
+                        var r = "帳號不存在";
+                        $("#errorlogin").html(r);
                     }
                 }
-            if(toalarm){
-                $("#errorlogin").html('請勿輸入特殊字元');
-            }
-            else{
-                $.ajax({
-                    type: "POST",
-                    url: "./login.php",
-                    data:"&password=" + pd,
-                    success: function(ans) {
-                        if (ans == "ok") {alert('123');}
-                        else if(ans == "pd_empty" || ans == "email_empty"){
-                            $("#errorlogin").html('輸入帳號及密碼');
-                        }
-                        else if(ans == "pd_error"){
-                            $("#errorlogin").html('帳號密碼錯誤');
-                        }
-                        else if(ans == "not_exist"){
-                            var r = "帳號不存在";
-                            $("#errorlogin").html(r);
-                        }
-                    }
-                });
-            }
-};
+            });
+        }
+    };
+
 </script>
+
 </html>
