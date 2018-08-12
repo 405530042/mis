@@ -1,25 +1,32 @@
 <?php
 include('write.php');
-?>
-<!DOCTYPE html>
+?>\
 
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>創建文章</title>
     <link rel="stylesheet" type="text/css" href="../../css/style.css">
-
 </head>
 <body>
     <div id="page">
         <div id="header">
-            <span><a href="../../connection/logout.php" id="login"> | Log out |</a></span>
+            <span>
+                <a href="../../connection/logout.php" id="login">
+                    | Log out |
+                </a>
+            </span>
+
             <div align="center">
-            <a href="login_news.php" id="logo"><img src="../../images/logo-3.png" alt="Logo" height="75" ></a></div>
+                <a href="login_news.php" id="logo">
+                    <img src="../../images/logo-3.png" alt="Logo" height="75">
+                </a>
+            </div>
+
             <ul>
                 <li>
-                    <a href="../login_news.php">內部消息公告</a>
-
+                    <a href="../login_news.php"> 內部消息公告 </a>
                 </li>
                 <li>
                     <a href>發表文章</a>

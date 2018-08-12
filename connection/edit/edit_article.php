@@ -1,38 +1,36 @@
 <?php 
 include('../connect/session.php');
+require('../template/header.php');
 
-if($user_id!=3){
+if ($user_id != 3) {
 	echo '權限不足';
-	header("refresh:2;url=./view.php");
-	session_destroy();
+	header("refresh:2; url=./view.php");
 }
-else{
-	?>
-	<!DOCTYPE html>
-	<html>
-	<head>
-		<title></title>
-	</head>
-	<body>
-	
-	<?php
-	$id=$_SESSION['article_id'];
-	$article=mysqli_query($conn,"select * from update_data where id like '$id'");
-	$rows=mysqli_num_rows($article);
-	if($rows===0){
+else {
+	$id = $_SESSION['article_id'];
+	$stmt = $conn->prepare("select * from update_data where id = ?");
+	$params = $id;
+	$stmt->bind_param('i', $params);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$stmt->close();
+	$rows = mysqli_num_rows($result);
+
+	if ($rows === 0) {
 		echo "<h3>尚無簡介</h3>";
 	}
-	else{
-		$content=mysqli_fetch_assoc($article);
-		$intro=$content['intro'];
-		?>
-		<form action="" method="post">
+	else {
+		$content = mysqli_fetch_assoc($result);
+		$intro = $content['intro'];
+?>
+	<form action="" method="post">
 		<textarea name="edited"><?php echo $intro ?></textarea>
-		<button type="submit" name="article_id" value="<?php echo $id ?>">修改內容</button>
-		</form>
-		<?php
+		<button type="submit" name="modify_intro" value="<?php echo $id ?>"> 修改內容 </button>
+		<button type="submit" name="modify_file" value="<?php echo $id ?>"> 重新上傳檔案</button>
+	</form>
+<?php
 	}
 }
+
+require('../template/footer.php');
 ?>
-	</body>
-	</html>

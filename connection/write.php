@@ -1,6 +1,8 @@
 <?php
 require("../../connection/connect.php");
+
 session_start();
+
 $user_check=$_SESSION['login_user'];
 $ses_sql=mysql_query("select * from members where account like '$user_check'");
 $row=mysql_fetch_assoc($ses_sql);
