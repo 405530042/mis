@@ -1,7 +1,7 @@
 <div class="nav">
     <ul>
 <?php
-if ($user_id != 3 && $user_id != 4 && $user_id != 2 && $user_id != 1) {
+if ($user_id == 0) {
 ?>
         <span></span>
 	    <span>
@@ -80,11 +80,6 @@ else {
     else if ($user_id == 4) {
 ?>
         <span>
-           <li>
-                <a>
-                    <?php echo $name  ?>
-                </a>
-            </li>
 	        <li>
                 <a href="login_time.php">
                     查看登入狀況
@@ -97,6 +92,11 @@ else {
             </li>
         </span>
         <span>
+        <li>
+                <a>
+                    <?php echo $name  ?>
+                </a>
+            </li>
 	        <li>
                 <a href="./connect/logout.php">
                     登出
@@ -127,6 +127,34 @@ else {
             </li>
         </span>
 <?php
+    }
+    else if ($user_id == 5) {
+?>
+        <span>
+            <li>
+                <a href="login_time.php">
+                    查看登入狀況
+                </a>
+            </li>
+            <li>
+                <a href="create_dir.php">
+                    新增作品資料夾
+                </a>
+            </li>
+        </span>
+        <span>
+           <li>
+                <a>
+                    <?php echo $name  ?>
+                </a>
+            </li>
+            <li>
+                <a href="./connect/logout.php">
+                    登出
+                </a>
+            </li>
+        </span>
+        <?php
     }
 }
 ?>

@@ -28,6 +28,7 @@ if (isset($_GET['article_id'])) {
         $content = mysqli_fetch_assoc($article);
         $intro = $content['intro'];
         $file_name = $content['file_name'];
+        $direction =$content['direction'];
         $team_number = $content['team'];
 ?>
             <p>
@@ -50,7 +51,7 @@ if (isset($_GET['article_id'])) {
                 </li>
 
                 <div id="scroller">
-                    <iframe style="pointer-events: none; user-select: none;" type="application/pdf" name="myiframe" id="myiframe" src="update/<?php echo $file_name . '.pdf' ;?>"></iframe>
+                    <iframe style="pointer-events: none; user-select: none;" type="application/pdf" name="myiframe" id="myiframe" src="update/<?php echo $direction . '/' . $file_name . '.pdf' ;?>"></iframe>
                 </div>
 <?php
         echo $intro;
@@ -59,9 +60,50 @@ if (isset($_GET['article_id'])) {
             </p>
 <?php
     if (!isset($user_id) || trim($user_id) == '') {
+         $stmt = $conn->prepare("select * from comment where article_id = ?");
+        $params = $article_id;
+        $stmt->bind_param('s', $params);
+        $stmt->execute();
+        $query = $stmt->get_result();
+        $stmt->close();
+        $rows = mysqli_num_rows($query);
+          if ($rows == 0) {
 ?>
+            <p>---留言區---</p>
+            <h3>尚無留言</h3>
             <a href="view.php" class="button">返回</a>
 <?php
+}
+else{
+    ?>
+    <p>---留言區---</p>
+      <table>
+                    <tr>
+                        <td> 姓名 </td>
+                        <td> 留言 </td>
+                        <td> 時間 </td>
+                    </tr>
+<?php
+
+            for ($i = 0; $i < $rows; $i++) {
+                $show_comment = mysqli_fetch_assoc($query);
+                $comment_name = $show_comment['name'];
+                $comment = $show_comment['content'];
+                $time = $show_comment['time'];
+    ?>
+      <tr>
+                        <td> <?php echo $comment_name ?> </td>
+                        <td> <?php echo $comment ?> </td>
+                        <td> <?php echo $time ?> </td>
+                    </tr>
+                    <?php
+                    }
+                    ?>
+                    </table>
+                     <a href="view.php" class="button">返回</a>
+                    <?php
+
+}
     }
     else {
 ?>

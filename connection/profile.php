@@ -70,6 +70,12 @@ else {
                                 <?php echo $profile['intro']; ?>
                             </label>
                         </div>
+                        <div class="form-group">
+                            <label >作品瀏覽</label>
+                            <label class="detal">
+                                <iframe style="pointer-events: none; user-select: none;" type="application/pdf" name="myiframe" id="myiframe" src="update/<?php echo $profile['file_name'] . '.pdf' ;?>"></iframe>
+                            </label>
+                        </div>
 <?php
         if ($user_id == 3) {
 ?> 

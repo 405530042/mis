@@ -61,7 +61,7 @@ else {
 	$stmt->execute();
 	$account = $stmt->get_result();
 	$stmt->close();
-	$account = mysqli_query($conn, "select * from member where authentication != 4");
+	$account = mysqli_query($conn, "select * from member where authentication != 4 and authentication !=5");
 	$rows = mysqli_num_rows($account);
 
 	if ($rows == 0) {

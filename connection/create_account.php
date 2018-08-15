@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($rows != 0) {
         	echo "account existed";
-        	header("refresh:1.5; url=./create_member.php");
+        	header("refresh:1.25; url=./create_member.php");
        	}
         else {
             $create_name = htmlspecialchars($_POST['create_name']);
