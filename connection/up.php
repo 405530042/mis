@@ -15,7 +15,12 @@ if (is_uploaded_file($_FILES['file']['tmp_name'])) {
 
         else {
             $direction = htmlspecialchars($_POST['direction']);
-            $stmt = $conn->prepare("select * from direction where dir_name =?");
+            if( trim($direction) == ''||trim($direction) == NULL){
+                $error = 11; 
+                header("location: ./connect/error.php");
+            }
+             else{
+            $stmt = $conn->prepare("select * from direction where dir_name =? and status = 1");
             $params = $direction;
             $stmt->bind_param('s', $direction);
             $stmt->execute();
@@ -24,8 +29,8 @@ if (is_uploaded_file($_FILES['file']['tmp_name'])) {
             echo $_POST['direction'];
             echo $name = htmlspecialchars($_POST['name']);
             if(mysqli_num_rows($result)!=1){
-                 $error=7;
-        header("location: ./connect/error.php");
+                $error=7;
+                header("location: ./connect/error.php");
             }
             else{
                 $name = htmlspecialchars($_POST['name']);
@@ -56,15 +61,17 @@ if (is_uploaded_file($_FILES['file']['tmp_name'])) {
          			               $error=8;
                 header("location: ./connect/error.php");
                     }
-                    else {
+                     else {
                              $error=9;
                 header("location: ./connect/error.php");
+                }
                 }
                 else {
                           $error=10;
                 header("location: ./connect/error.php");
                 }
             }
+          }
         }
     }
 }

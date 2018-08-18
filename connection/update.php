@@ -4,14 +4,14 @@ require('./template/header.php');
 
 if ($user_id != 3) {
 	echo '權限不足';
-	header("refresh:0.75; url=./view.php");
+	header("refresh:0.75; url=./index.php");
 }
 else if($check==1){
 	echo '該隊伍已上傳檔案';
-	header("refresh:0.75; url=./view.php");
+	header("refresh:0.75; url=./index.php");
 }
 else {
-	$stmt = $conn->prepare("select * from direction");
+	$stmt = $conn->prepare("select * from direction where status = 1");
 	$stmt->execute();
 	$result = $stmt->get_result();
 	

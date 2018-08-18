@@ -4,7 +4,7 @@ require('./template/header.php');
 
 if ($user_id != 4) {
 	echo '權限不足';
-	header("refresh:2; url=./view.php");
+	header("refresh:2; url=./index.php");
 }
 else {
 ?>
@@ -140,7 +140,7 @@ else {
 ?>
 	</table>
 
-	<a href="view.php" class="button"> 返回 </a>
+	<a href="index.php" class="button"> 返回 </a>
 <?php
 }
 

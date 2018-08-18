@@ -10,10 +10,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     else {
         $user = htmlspecialchars($_POST['username']);
-        $password = htmlspecialchars($_POST['password']);
+        $password = 'a'. htmlspecialchars($_POST['password']);
+        $encrypt ='a'. hash('md5',hash('sha256',$password));
         $stmt = $conn->prepare("select * from member where password = ? && number = ?");
-        $params = array($password,$user);
-        $stmt->bind_param('ss',$password,$user);
+        $stmt->bind_param('ss',$encrypt,$user);
         $stmt->execute();
         $result = $stmt->get_result();
         $stmt->close();
@@ -26,7 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         else {
              $_SESSION['error'] = 1;
-            header("Location: ./error.php");
+            // header("Location: ./error.php");
+             echo  $encrypt;
         }
         
         mysqli_close($conn);

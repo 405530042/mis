@@ -43,13 +43,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errorchange="欄位為空";
         }
         else if(htmlspecialchars($_POST['new'])==htmlspecialchars($_POST['check'])){
+                  if (strlen(trim(htmlspecialchars($_POST['new']))) > 12) {
+                    $_SESSION['error']=12;
+                    header("Location: ./connect/error.php");
+    }
+                else{
             $pd = htmlspecialchars($_POST['old']);
             $password = htmlspecialchars($_POST['new']);
+             $password = 'a'. htmlspecialchars($_POST['password']);
+            $encrypt ='a'. hash('md5',hash('sha256',$password));
             $user_id = $row['id'];
             $old_pd = $row['password'];
             if($old_pd == $pd){
                  $stmt = $conn->prepare("update member set password = ? where id = ?");
-                $stmt->bind_param('si', $password, $user_id);
+                $stmt->bind_param('si', $encrypt, $user_id);
                 $stmt->execute();
                 $stmt->close();
                 $_SESSION['error']=2;
@@ -59,6 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['error']=3;
                  header("Location: ./connect/error.php");
                 }
+            }
         }
          else{
                 $_SESSION['error']=4;

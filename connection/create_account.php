@@ -14,6 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo 'password_empty';
         header("refresh:1.5; url=./create_member.php");
     }
+    else if (strlen(trim($_POST['pass'])) > 12) {
+        echo 'password_TooLong';
+        header("refresh:1.5; url=./create_member.php");
+    }
 	else {
 		$create_number=htmlspecialchars($_POST['create_number']);
 		$stmt = $conn->prepare("select * from member where number = ?");
@@ -30,13 +34,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         	header("refresh:1.25; url=./create_member.php");
        	}
         else {
-            $create_name = htmlspecialchars($_POST['create_name']);
-    		$password = htmlspecialchars($_POST['pass']);
+            $create_name = chr(htmlspecialchars($_POST['create_name']));
+    		$password = 'a'. htmlspecialchars($_POST['pass']);
+            $encrypt ='a'. hash('md5',hash('sha256',$password));
     		$authentication = htmlspecialchars($_POST['carrer']);
     		$team = htmlspecialchars($_POST['team']);
     		$time = htmlspecialchars(date("Y-m-d H:i:s"));
     		$stmt = $conn->prepare("insert into member(name,number,password,authentication,team,created_time) values(?,?,?,?,?,?)");
-    		$stmt->bind_param('sssiss',$create_name,$create_number,$password,$authentication,$team,$time);
+    		$stmt->bind_param('sssiss',$create_name,$create_number,$encrypt,$authentication,$team,$time);
     		$stmt->execute();
     		$stmt->close();
 			echo '新增成功';

@@ -4,13 +4,13 @@ require('./connect/session.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (!isset($user_id) || trim($user_id) == '') {
 		echo '權限不足';
-		header("refresh:2; url=./view.php");
+		header("refresh:2; url=./index.php");
 	}
 	else {
 		if (!isset($_POST['comment']) || trim($_POST['comment']) == '') {
 			$article_id = htmlspecialchars($_POST['submit']);
 			$url = "?article_id=$article_id";
-			header("location: ./view.php$url");
+			header("location: ./index.php$url");
 		}
 		else {
 			$content = htmlspecialchars($_POST['comment']); // xss_clean($_POST['comment']);
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$stmt->execute();
 			$stmt->close();
 		 	$url = "?article_id=$article_id";
-			header("location: ./view.php$url");
+			header("location: ./index.php$url");
 		}
 	}
 }

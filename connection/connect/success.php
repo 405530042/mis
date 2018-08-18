@@ -16,7 +16,7 @@ switch ($user_id) {
         $stmt->close();
         $status = $name . '登入成功';
         echo $status;
-        header("refresh:1; url=../view.php");
+        header("refresh:1; url=../index.php");
         break;
 	case 3:
         $time = date("Y-m-d H:i:s");
@@ -25,7 +25,7 @@ switch ($user_id) {
         $stmt->close();
 		$status = $name . '同學(組長)登入成功';
 		echo $status;
-		header("refresh:1; url=../view.php");
+		header("refresh:1; url=../index.php");
 		break;
 	case 4:
         $time = date("Y-m-d H:i:s");
@@ -34,21 +34,21 @@ switch ($user_id) {
         $stmt->close();
 		$status = $name . '管理員登入成功';
 		echo $status;
-		header("refresh:1; url=../view.php");
+		header("refresh:1; url=../index.php");
         break;
     case 2:
         $time = date("Y-m-d H:i:s");
         $query = mysqli_query($conn,"insert into login_time(name,time) values('$name','$time')");
         $status = $name . '同學登入成功';
         echo $status;
-        header("refresh:1; url=../view.php");
+        header("refresh:1; url=../index.php");
         break;
     case 1:
         $time = date("Y-m-d H:i:s");
         $query = mysqli_query($conn,"insert into login_time(name,time) values('$name','$time')");
         $status = $name . '登入成功';
         echo $status;
-        header("refresh:1; url=../view.php");
+        header("refresh:1; url=../index.php");
         break;
 
 }

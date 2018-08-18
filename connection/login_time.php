@@ -10,7 +10,7 @@ require('./template/nav.php');
 <?php
 if ($user_id != 4 && $user_id != 5) {
 	echo '權限不足';
-	header("refresh:2; url=./view.php");
+	header("refresh:2; url=./index.php");
 }
 else {
     $stmt = $conn->prepare("select * from login_time");
@@ -104,7 +104,7 @@ else {
     }
 }
 ?>
-            <a href="view.php" class="button"> 返回 </a>
+            <a href="index.php" class="button"> 返回 </a>
         </div>
     </div>
 <?php

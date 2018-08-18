@@ -40,7 +40,7 @@ switch ($error) {
 
 	 case 8:
         echo '上傳成功';
-        header("refresh:1.25; url=../view.php");
+        header("refresh:1.25; url=../index.php");
     break;
 
     case 9:
@@ -54,7 +54,16 @@ switch ($error) {
     echo $status;
     header("refresh:1.25; url=../update.php");
     break;
-
+ 		case 11:
+		    $status = '所有資料夾已關閉';
+		    echo $status;
+		    header("refresh:1.25; url=../update.php");
+		    break;
+		case 12:
+		    $status = '新密碼過長';
+		    echo $status;
+			header("refresh:1.25; url=../change_password.php");
+		break;
 	default:
 	echo "發生錯誤請重新登入";
 		session_destroy();

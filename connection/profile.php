@@ -5,7 +5,7 @@ require('./template/nav.php');
 
 if ($user_id != 3 && $user_id != 2) {
     echo '權限不足';
-    header("refresh:2; url=./view.php");
+    header("refresh:2; url=./index.php");
 }
 else {
     $query_teamname = $conn->prepare("select * from member where team = ?");
@@ -83,7 +83,7 @@ else {
                             <button type="submit" name="edit" method="post" value="<?php echo $profile['id'] ?>">
                                 更改內容
                             </button>
-                            <button class="back"><a href="view.php">回上一頁</a></button>
+                            <button class="back"><a href="index.php">回上一頁</a></button>
                         </div>
                     </form>
                 </div>
@@ -92,7 +92,7 @@ else {
         else {
 ?>
                 <div class="form-group">
-                    <button class="back"><a href="view.php">回上一頁</a> </button>
+                    <button class="back"><a href="index.php">回上一頁</a> </button>
                 </div>
 <?php
         }
@@ -106,7 +106,7 @@ else {
                         </div>
 
                         <div class="form-group">
-                            <button class="back"><a href="view.php"> 回上一頁 </a></button>
+                            <button class="back"><a href="index.php"> 回上一頁 </a></button>
                         </div>
                     </form>
                 </div>

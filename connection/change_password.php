@@ -5,7 +5,7 @@ require('./template/nav.php');
 
 if ($user_id != 3 && $user_id != 2) {
     echo '權限不足';
-    header("refresh:2; url=./view.php");
+    header("refresh:2; url=./index.php");
 }
 else{
 	?>
