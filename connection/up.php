@@ -1,7 +1,7 @@
 <?php
 require('./connect/session.php');
 define("filesplace", "./");
-
+require('timer.php');
 if (is_uploaded_file($_FILES['file']['tmp_name'])) {
     if ($_FILES['file']['type'] != "application/pdf") {
         $_SESSION['error']=6;
@@ -48,9 +48,9 @@ if (is_uploaded_file($_FILES['file']['tmp_name'])) {
 
                         if ($rows == 0) {
                             $time = date("Y-m-d h:i:sa");
-                            $stmt = $conn->prepare("insert into update_data(direction,file_name,intro,team,time) values(?,?,?,?,?)");
+                            $stmt = $conn->prepare("insert into update_data(direction,file_name,intro,team,time,image) values(?,?,?,?,?,?)");
                             $params = $name;
-                            $stmt->bind_param('sssss',$direction ,$name, $introduction, $team, $time);
+                            $stmt->bind_param('ssssss',$direction ,$name, $introduction, $team, $time,$id);
                             $stmt->execute();
                             $stmt->close();
                             $check = $conn->prepare("update member set update_check = ? where team = ?");

@@ -61,9 +61,10 @@ else {
 	
 <?php
 	if ($user_id == 5) {
-		$stmt = $conn->prepare("select * from member where authentication != ?");
-		$auth = 5;
-		$stmt->bind_param('i', $auth);
+		$stmt = $conn->prepare("select * from member where authentication = ? or authentication = ?");
+		$auth = 4;
+		$auth2 = 1;
+		$stmt->bind_param('ii', $auth,$auth2);
 	}
 	else if ($user_id == 4) {
 		$stmt = $conn->prepare("select * from member where authentication != ? and authentication != ?");
@@ -100,6 +101,9 @@ else {
 			<td>
 <?php 
 			switch ($authentication) {
+				case 4:
+					echo "管理員";
+					break;
 				case 3:
 					echo "學生(組長)";
 					break;

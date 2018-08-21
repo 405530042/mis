@@ -1,7 +1,7 @@
 <?php 
 require('./connect/session.php');
 require('./template/header.php');
-
+require('timer.php');
 if ($user_id != 3) {
 	echo '權限不足';
 	header("refresh:0.75; url=./index.php");

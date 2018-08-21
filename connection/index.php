@@ -2,6 +2,7 @@
 require('./connect/session.php');
 require('./template/header.php');
 require('./template/nav.php');
+require('timer.php');
 ?>
 
     <div class="pre-container">

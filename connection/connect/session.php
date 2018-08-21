@@ -3,8 +3,8 @@ require("connect.php");
 require('prevent.php');
 
 session_start();
-
 date_default_timezone_set("Asia/Taipei");
+
 $stmt = $conn->prepare("select * from member where number = ?");
 $stmt->bind_param('s', $_SESSION['login_user']);
 $stmt->execute();
