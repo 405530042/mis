@@ -137,13 +137,18 @@ else {
                 </a>
             </li>
             <li>
+                <a href="create_member.php">
+                    設定登入人員名單
+                </a>
+            </li>
+            <li>
                 <a href="create_dir.php">
                     新增作品資料夾
                 </a>
             </li>
         </span>
         <span>
-           <li>
+            <li>
                 <a>
                     <?php echo $name  ?>
                 </a>

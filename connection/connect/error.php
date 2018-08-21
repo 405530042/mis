@@ -1,6 +1,6 @@
 <?php
-include('../connect/session.php');
-switch ($error) {
+session_start();
+switch ($_SESSION['error']) {
 	case 1:
 		echo "帳號或密碼錯誤，請重新登入";
 		session_destroy();
@@ -29,7 +29,7 @@ switch ($error) {
 	break;
 
 	case 6:
-		echo "請上傳PDF格式.";
+		echo "請上傳正確格式.";
 		header("refresh:1.25; url=../update.php");
 	break;
 
@@ -38,36 +38,46 @@ switch ($error) {
 		header("refresh:1.25; url=../update.php");
 	break;
 
-	 case 8:
+	case 8:
         echo '上傳成功';
         header("refresh:1.25; url=../index.php");
     break;
 
     case 9:
-        $status = '檔名重複';
-        echo $status;
+        echo '檔名重複';
         header("refresh:1.25; url=../update.php");
     break;	
     
-       case 10:
-    $status = '發生錯誤，請再試一次';
-    echo $status;
-    header("refresh:1.25; url=../update.php");
+    case 10:
+	    echo '發生錯誤，請再試一次';
+	    header("refresh:1.25; url=../update.php");
     break;
- 		case 11:
-		    $status = '所有資料夾已關閉';
-		    echo $status;
-		    header("refresh:1.25; url=../update.php");
-		    break;
-		case 12:
-		    $status = '新密碼過長';
-		    echo $status;
-			header("refresh:1.25; url=../change_password.php");
-		break;
+
+	case 11:
+	    echo '所有資料夾已關閉';
+	    header("refresh:1.25; url=../update.php");
+	break;
+
+	case 12:
+	    echo '新密碼過長';
+		header("refresh:1.25; url=../change_password.php");
+	break;
+
+	case 13:
+	    echo '無此權限';
+		header("refresh:1.25; url=../create_member.php");
+	break;
+
+	 case 20:
+	    echo '發生錯誤，請再試一次';
+	    header("refresh:1.25; url=../edit/edit_image.php");
+    break;
+
 	default:
-	echo "發生錯誤請重新登入";
+		echo "發生錯誤請重新登入";
+		echo $error;
 		session_destroy();
-	header("refresh:1.25; url=../login.html");
+		header("refresh:1.25; url=../login.html");
 	break;
 }
 

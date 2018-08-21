@@ -15,6 +15,7 @@ else {
     $query->close();
     $profile = mysqli_fetch_array($result2);
     $file_name=$profile['file_name'];
+    $direction=$profile['direction'];
 ?>
 	<form action= "" enctype="multipart/form-data" method="post">
 		修改檔案名稱:
@@ -28,7 +29,6 @@ else {
 		<input type="submit" name="modify_file2" value="重新上傳" />
 	</form>
 <?php
-}
 
 require('../template/footer.php');
 ?>
@@ -46,12 +46,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("refresh:1.5");
             }
             else{
-                $file_url="../update/$file_name.pdf";
+                $file_url="../update/$direction/$file_name.pdf";
              if(file_exists($file_url)){
                  $new_name=htmlspecialchars($_POST['name']);
-                 $result = move_uploaded_file($_FILES['file']['tmp_name'], '../update'."/$new_name.pdf");
+                 $result = move_uploaded_file($_FILES['file']['tmp_name'], "../update/$direction/$new_name.pdf");
                  	if($result==1){
-                 		 unlink($file_url);
+                        if($file_name===$new_name){
 		                 $time = date("Y-m-d h:i:sa");
 		                 $team=$profile['team'];
 		                 $stmt = $conn->prepare("update update_data set file_name =? ,time =? where team =?");
@@ -61,7 +61,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		                 $stmt->close();
 		                   $_SESSION['error'] = 5;
             			header("Location: ../connect/error.php");
+                    }
+                    else{
+                         unlink($file_url);
+                         $time = date("Y-m-d h:i:sa");
+                         $team=$profile['team'];
+                         $stmt = $conn->prepare("update update_data set file_name =? ,time =? where team =?");
+                         $params = $name;
+                         $stmt->bind_param('sss', $new_name, $time ,$team);
+                         $stmt->execute();
+                         $stmt->close();
+                           $_SESSION['error'] = 5;
+                        header("Location: ../connect/error.php");
             		 }
+                    }
 	             else{
 	             	echo "上傳失敗請再試一次";
 	             }
@@ -75,5 +88,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 	 
+}
 }
 ?>

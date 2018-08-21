@@ -2,7 +2,7 @@
 include('./connect/session.php');
 require('./template/header.php');
 
-if ($user_id != 4) {
+if ($user_id != 4 && $user_id != 5) {
 	echo '權限不足';
 	header("refresh:2; url=./index.php");
 }
@@ -31,9 +31,14 @@ else {
 				</td>
 				<td>
 					<select name="carrer">
+					<?php if ($user_id == 4) { ?>
 						<option value="2"> 學生(一般) </option>
 						<option value="3"> 學生(組長) </option>
+						<?php } ?>
 						<option value="1"> 老師 </option>
+<?php if ($user_id == 5) { ?>
+						<option value="4"> 管理員 </option>
+<?php } ?>
 					</select>
 				</td>
 				<td>
@@ -46,7 +51,7 @@ else {
 		</tr>
 	</table>
 
-	<table>
+	<table border=1>
 		<tr> 現有帳號
 			<td> 姓名 </td>
 			<td> 職稱 </td>
@@ -54,14 +59,22 @@ else {
 			<td> 組別 </td>
 		</tr>
 	
-<?php 
-	$stmt = $conn->prepare("select * from member where authentication != ?");
-	$params = 4;
-	$stmt->bind_param('i', $params);
+<?php
+	if ($user_id == 5) {
+		$stmt = $conn->prepare("select * from member where authentication != ?");
+		$auth = 5;
+		$stmt->bind_param('i', $auth);
+	}
+	else if ($user_id == 4) {
+		$stmt = $conn->prepare("select * from member where authentication != ? and authentication != ?");
+		$auth1 = 4;
+		$auth2 = 5;
+		$stmt->bind_param('ii', $auth1, $auth2);
+	}
+
 	$stmt->execute();
 	$account = $stmt->get_result();
 	$stmt->close();
-	$account = mysqli_query($conn, "select * from member where authentication != 4 and authentication !=5");
 	$rows = mysqli_num_rows($account);
 
 	if ($rows == 0) {
@@ -113,7 +126,7 @@ else {
 ?>
 			</td>
 			<td>
-				<form action="" method="post">
+				<form action="" method="post" onsubmit="return delete_double_check()">
 					<button type="submit" name="delete_account" value="<?php echo $number ?>"> 刪除 </button>
 				</form>
 			</td>
@@ -143,6 +156,14 @@ else {
 	<a href="index.php" class="button"> 返回 </a>
 <?php
 }
+?>
 
+<script>
+	function delete_double_check() {
+		return (confirm('是否確定刪除此帳號？')) ? true : false;
+	}
+</script>
+
+<?php
 require('./template/footer.php');
 ?>

@@ -15,13 +15,17 @@ $user_id = $row['authentication'];
 $account = $row['number'];
 $name = $row['name'];
 $team = $row['team'];
+$id= $row['id'];
 $check=$row['update_check'];
-$error=(isset($_SESSION['error'])) ? $_SESSION['error'] : 0;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['edit'])) {
         $_SESSION['article_id'] = htmlspecialchars($_POST['edit']);
         header("location: ./edit/edit_article.php");
+    }
+    else if (isset($_POST['image'])) {
+        $_SESSION['article_id'] = htmlspecialchars($_POST['edit']);
+        header("location: ./edit/edit_image.php");
     }
 // 編輯成功
     else if (isset($_POST['modify_intro'])) {

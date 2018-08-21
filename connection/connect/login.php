@@ -25,9 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: ./success.php");
         }
         else {
-             $_SESSION['error'] = 1;
-            // header("Location: ./error.php");
-             echo  $encrypt;
+            $_SESSION['error'] = 1;
+            header("Location: ./error.php");
         }
         
         mysqli_close($conn);

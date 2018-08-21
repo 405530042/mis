@@ -36,11 +36,14 @@ else {
 			}  ?>
 		</select>
 		</label>
+		
 			<br>
 				<br>
 		<textarea name="intro"></textarea>
 		<input type="submit" name="submit" value="送出" />
 	</form>
+			<br>
+			<button><a href="index.php">返回</a></button>
 <?php
 }
 

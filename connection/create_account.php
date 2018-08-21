@@ -27,14 +27,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->close();
         $rows = mysqli_num_rows($result);
 
-        echo $rows;
+        // echo $rows;
 
         if ($rows != 0) {
         	echo "account existed";
         	header("refresh:1.25; url=./create_member.php");
        	}
         else {
-            $create_name = chr(htmlspecialchars($_POST['create_name']));
+            if ($user_id == 5) {
+                if (htmlspecialchars($_POST['carrer']) != 1 && 
+                    htmlspecialchars($_POST['carrer']) != 2 && 
+                    htmlspecialchars($_POST['carrer']) != 3 && 
+                    htmlspecialchars($_POST['carrer']) != 4) {
+                    $error = 13;
+                    header("location: ./connect/error.php");
+                }
+            }
+            else if ($user_id == 4) {
+                if (htmlspecialchars($_POST['carrer']) != 1 && 
+                    htmlspecialchars($_POST['carrer']) != 2 && 
+                    htmlspecialchars($_POST['carrer']) != 3) {
+                    $error = 13;
+                    header("location: ./connect/error.php");
+                }
+            }
+
+            $create_name = (string) htmlspecialchars($_POST['create_name']);
     		$password = 'a'. htmlspecialchars($_POST['pass']);
             $encrypt ='a'. hash('md5',hash('sha256',$password));
     		$authentication = htmlspecialchars($_POST['carrer']);

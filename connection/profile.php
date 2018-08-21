@@ -35,6 +35,7 @@ else {
         $has_data = true;
         $profile = mysqli_fetch_array($result2);
         $update_time = $profile['time'];
+        $direction = $profile['direction'];  
     }
 ?>
     <div id="page">
@@ -44,6 +45,7 @@ else {
             <div id="profile-content">
                 <div id="header">
                     <h1 id="team-name">
+
                        組別: <?php echo $team['team']; ?>
                     </h1>
                     <h5 id="update-date">
@@ -73,15 +75,18 @@ else {
                         <div class="form-group">
                             <label >作品瀏覽</label>
                             <label class="detal">
-                                <iframe style="pointer-events: none; user-select: none;" type="application/pdf" name="myiframe" id="myiframe" src="update/<?php echo $profile['file_name'] . '.pdf' ;?>"></iframe>
+                                <iframe style="pointer-events: none; user-select: none;" type="application/pdf" name="myiframe" id="myiframe" src="update/<?php echo $direction.'/'.$profile['file_name'] . '.pdf' ;?>"></iframe>
                             </label>
                         </div>
 <?php
         if ($user_id == 3) {
 ?> 
                         <div class="form-group">
-                            <button type="submit" name="edit" method="post" value="<?php echo $profile['id'] ?>">
-                                更改內容
+                            <button type="submit" name="edit" value="<?php echo $profile['id'] ?>">
+                                更改簡介
+                            </button>
+                            <button type="submit" name="image" value="<?php echo $profile['id'] ?>">
+                                修改封面圖片
                             </button>
                             <button class="back"><a href="index.php">回上一頁</a></button>
                         </div>

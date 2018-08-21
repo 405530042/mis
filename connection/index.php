@@ -168,7 +168,7 @@ else {
 ?>
             <div id="profile-area">
 <?php
-    $query = mysqli_query($conn, 'select * from update_data');
+    $query = mysqli_query($conn, 'select * from update_data order by id desc');
     $rows = mysqli_num_rows($query);
     if ($row === 0) {
 ?>
@@ -183,9 +183,10 @@ else {
             $article_content = mysqli_fetch_assoc($query);
             $id = $article_content['id'];
             $name = $article_content['file_name'];
-
+            $direction= $article_content['direction'];
+            $image= $article_content['image'];
             // profile 圖片的 url
-            $url = "./update/img/test.jpg"; // $article_content['url'];
+            $url = "./update/img/$direction/$image.jpg"; // $article_content['url'];
 ?>
                     <!-- <li><?php echo '<a href="index.php?article_id=',$id,'">',$name, '</a>'; ?></li> -->
                     <li class="profile-box">
@@ -197,7 +198,7 @@ else {
                     
                         <div class="title">
 <?php
-            echo '<a href="index.php?article_id=', $id, '">', $name, '</a>';
+            echo '<a href="index.php?article_id=',htmlentities(urlencode($id)), '">', $name, '</a>';
 ?>
                         </div>
                     </li>

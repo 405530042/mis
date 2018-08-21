@@ -16,6 +16,10 @@ if ($user_id != 5) {
 		<div class="container">
 			<form action="" method="POST">
 				<input type="text" name="create_dir" placeholder="新增資料夾名稱" required>
+				<label for="meeting">
+				<br>
+				<br>
+				繳交期限：</label><input name="deadline" type="datetime-local" id="bookdate" value="2018-06-12T23:59" min="<?php echo date('Y-m-d'); ?>">
 				<button name="create_direction" type="submit"> 送出 </button>
 			</form>
 			
@@ -72,30 +76,35 @@ if ($user_id != 5) {
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if(isset($_POST['create_direction'])){
-		if (!isset($_POST['create_dir']) || trim($_POST['create_dir']) == '') {
-			echo 'dir_name_empty';
-			header("refresh:1.5; url=./create_member.php");
-		}
-		else {
-			$create_dir = htmlspecialchars($_POST['create_dir']);
-			$path = './update/' . $create_dir;
+		echo $_POST['deadline'];
+		// if (!isset($_POST['create_dir']) || trim($_POST['create_dir']) == '') {
+		// 	echo 'dir_name_empty';
+		// 	header("refresh:1.5; url=./create_member.php");
+		// }
+		// else {
+		// 	$create_dir = htmlspecialchars($_POST['create_dir']);
+		// 	$path_pdf = './update/' . $create_dir;
+		// 	$path_img = './img/' . $create_dir;
 
-			if (!file_exists($path)) {
-				mkdir($path);
+		// 	if (!file_exists($path_pdf)) {
+		// 		mkdir($path_pdf);
 
-				$stmt = $conn->prepare("insert into direction (dir_name) values (?)");
-				$stmt->bind_param('s', $create_dir);
-				$stmt->execute();
-				$stmt->close();
+		// 		if (!file_exists($path_img))
+		// 			mkdir($path_img);
 
-				echo '資料夾新增成功';
-				header("refresh:1.5; url=./create_dir.php");
-			}
-			else {
-				echo '資料夾已經存在';
-				header("refresh:1.5; url=./create_dir.php");
-			}
-		}
+		// 		$stmt = $conn->prepare("insert into direction (dir_name) values (?)");
+		// 		$stmt->bind_param('s', $create_dir);
+		// 		$stmt->execute();
+		// 		$stmt->close();
+
+		// 		echo '資料夾新增成功';
+		// 		header("refresh:1.5; url=./create_dir.php");
+		// 	}
+		// 	else {
+		// 		echo '資料夾已經存在';
+		// 		header("refresh:1.5; url=./create_dir.php");
+		// 	}
+		// }
 	}
 	else if(isset($_POST['delete_dir'])) {
 		$id = htmlspecialchars($_POST['delete_dir']);
