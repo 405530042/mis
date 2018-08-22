@@ -60,7 +60,7 @@ if (isset($_GET['article_id'])) {
 ?>
             </p>
 <?php
-    if (!isset($user_id) || trim($user_id) == '') {
+    if (!isset($_SESSION['user_id'] ) || trim($_SESSION['user_id'] ) == '') {
          $stmt = $conn->prepare("select * from comment where article_id = ?");
         $params = $article_id;
         $stmt->bind_param('s', $params);

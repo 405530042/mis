@@ -4,8 +4,8 @@ require('./template/header.php');
 require('./template/nav.php');
 ?>
 
-    <div class="pre-container">
-        <div class="container">
+<div class="pre-container">
+    <div class="container">
 
 <?php
 if ($_SESSION['user_id'] != 4 && $_SESSION['user_id']!= 5) {
@@ -21,23 +21,33 @@ else {
 
     if($rows === 0) {
 ?>
-            <li> 尚無資料 </li>
+        <li> 尚無資料 </li>
 <?php
     }
     else {
 ?>
-        <table border=1>
-            <tr>
-                <th> 姓名 </th>
-                <th> 登入時間 </th>
-            </tr>
+
+        <div class="info-box">
+            <div class="info-title"> 登入紀錄 </div>
+
+            <div class="info-content">
+                <div class="info-content-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th> 姓名 </th>
+                                <th> 登入時間 </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
 <?php
-        if ($_SESSION['user_id']== 4) {
-            $stmt = $conn->prepare("select * from login_time where auth !=? and auth !=? and auth !=? ");
+        if ($_SESSION['user_id'] == 4) {
+            $stmt = $conn->prepare("select * from login_time where auth != ? and auth != ? and auth != ? ");
             $auth5 = 5;
             $auth4 = 4;
             $auth1 = 1;
-            $stmt->bind_param('iii',$auth5,$auth4,$auth1);
+            $stmt->bind_param('iii', $auth5, $auth4, $auth1);
             $stmt->execute();
             $query = $stmt->get_result();
             $stmt->close();
@@ -46,31 +56,27 @@ else {
 <?php
             for ($i = 1; $i <= mysqli_num_rows($query); $i++) {
 ?>
-        <tr>
+                            <tr>
 <?php
                 $login_content = mysqli_fetch_assoc($query);
                 $name = $login_content['name'];
                 $time = $login_content['time'];
 ?>
-            <td>
-<?php
-                echo $name;
-?>
-            </td>
-            <td>
-<?php
-                echo $time;
-?>
-            </td>
-        </tr>
+                                <td>
+<?php                               echo $name; ?>
+                                </td>
+                                <td class="td-center">
+<?php                               echo $time; ?>
+                                </td>
+                            </tr>
 <?php
             }
         }
-        else if ($_SESSION['user_id'] == 5) {//this
-            $stmt = $conn->prepare("select * from login_time where auth =? or auth =? ");
+        else if ($_SESSION['user_id'] == 5) {
+            $stmt = $conn->prepare("select * from login_time where auth = ? or auth = ? ");
             $auth4 = 4;
             $auth1 = 1;
-            $stmt->bind_param('ii',$auth4,$auth1);
+            $stmt->bind_param('ii', $auth4, $auth1);
             $stmt->execute();
             $query = $stmt->get_result();
             $stmt->close();
@@ -78,35 +84,34 @@ else {
 
             for ($i = 1; $i <= mysqli_num_rows($query); $i++) {
 ?>
-            <tr>
+                            <tr>
 <?php
                 $login_content = mysqli_fetch_assoc($query);
                 $name = $login_content['name'];
                 $time = $login_content['time'];
 ?>
-                <td>
-<?php
-                echo $name;
-?>
-                </td>
-                <td>
-<?php
-                echo $time;
-?>
-                </td>
-            </tr>
+                                <td>
+<?php                               echo $name; ?>
+                                </td>
+                                <td class="td-center">
+<?php                               echo $time; ?>
+                                </td>
+                            </tr>
 <?php
             }
         }
 ?>
-            </table>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 <?php
     }
 }
 ?>
-            <a href="index.php" class="button"> 返回 </a>
-        </div>
     </div>
+</div>
 <?php
 require('./template/footer.php');
 ?>

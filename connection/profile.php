@@ -28,10 +28,20 @@ else {
     $update_time = '無';
 
     if ($rows == 0) {
+    $query = $conn->prepare("UPDATE member SET update_check = 0  WHERE team = ?");
+    $params = $_SESSION['team'];
+    $query->bind_param('s',$params);
+    $query->execute();
+    $query->close();
         $has_data = false;
         $update_time = '無';
     }
     else {
+        $query = $conn->prepare("UPDATE member SET update_check = 1 WHERE team = ?");
+        $params = $_SESSION['team'];
+        $query->bind_param('s',$params);
+        $query->execute();
+        $query->close();
         $has_data = true;
         $profile = mysqli_fetch_array($result2);
         $update_time = $profile['time'];

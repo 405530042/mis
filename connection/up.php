@@ -49,7 +49,7 @@ if (is_uploaded_file($_FILES['file']['tmp_name'])) {
                             $time = date("Y-m-d h:i:sa");
                             $stmt = $conn->prepare("insert into update_data(direction,file_name,intro,team,time,image) values(?,?,?,?,?,?)");
                             $params = $name;
-                            $stmt->bind_param('ssssss',$direction ,$name, $introduction, $_SESSION['team'], $time,$_SESSION['id']);
+                            $stmt->bind_param('ssssss',$direction ,$params, $introduction, $_SESSION['team'], $time,$_SESSION['id']);
                             $stmt->execute();
                             $stmt->close();
                             $check = $conn->prepare("update member set update_check = ? where team = ?");
@@ -59,6 +59,7 @@ if (is_uploaded_file($_FILES['file']['tmp_name'])) {
                             $check->close();
                             $_SESSION['error'] = 8;
                             header("location: ./connect/error.php");
+                            
                         }
                         else {
                             $_SESSION['error'] = 9;

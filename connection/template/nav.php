@@ -3,6 +3,7 @@ date_default_timezone_set("Asia/Taipei");?>
 <div class="nav">
     <ul>
 <?php
+ if(isset($_SESSION['user_id'] )){
 if ($_SESSION['user_id'] == 0) {
 ?>
         <span></span>
@@ -163,6 +164,21 @@ else {
         </span>
         <?php
     }
+}
+}
+else
+{
+    ?>
+     <span></span>
+        <span>
+            <li>
+                <a href="login.html">
+                    登入
+                </a>
+            </li>
+
+        </span>
+        <?php
 }
 ?>
     </ul>

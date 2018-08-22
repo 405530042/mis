@@ -1,7 +1,8 @@
 <?php 
 include('./connect/connect.php');
 require('./template/header.php');
-session_start();
+require('./template/nav.php');
+
 if ($_SESSION['user_id']!= 4 && $_SESSION['user_id'] != 5) {
 	echo '權限不足';
 	header("refresh:2; url=./index.php");
@@ -9,62 +10,83 @@ if ($_SESSION['user_id']!= 4 && $_SESSION['user_id'] != 5) {
 else {
 ?>
 
-	<table>
-		<tr>
-			<td> 姓名 </td>
-			<td> 學號(帳號) </td>
-			<td> 密碼 </td>
-			<td> 職稱 </td>
-			<td> 組別 </td>
-		</tr>
+<div class="pre-container">
+    <div class="container">
+		<div class="info-box">
+            <div class="info-title"> 新增帳號 </div>
 
-		<tr>
-			<form action="create_account.php" method="post">
-				<td>
-					<input name="create_name" />
-				</td>
-				<td>
-					<input name="create_number" />
-				</td>
-				<td>
-					<input name="pass" />
-				</td>
-				<td>
-					<select name="carrer">
-					<?php if ($_SESSION['user_id'] == 4) { ?>
-						<option value="2"> 學生(一般) </option>
-						<option value="3"> 學生(組長) </option>
-						<?php } ?>
-						<option value="1"> 老師 </option>
-<?php if ($_SESSION['user_id']== 5) { ?>
-						<option value="4"> 管理員 </option>
+            <div class="info-content">
+                <div class="info-content-form">
+                    <form action="create_account.php" method="post">
+                        <div class="form-group">
+                            <label> 姓名 </label>
+                            <input type="text" name="create_name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> 學號 (帳號) </label>
+                            <input type="text" name="create_number" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> 密碼 </label>
+                            <input type="text" name="pass" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> 職稱 </label>
+                            <select name="carrer">
+                                <option value="2"> 學生(一般) </option>
+                                <option value="3"> 學生(組長) </option>
+                                <option value="1"> 老師 </option>
+<?php if ($_SESSION['user_id'] == 5) { ?>
+                                <option value="4"> 管理員 </option>
 <?php } ?>
-					</select>
-				</td>
-				<td>
-					<input name="team" />
-				</td>
-				<td>
-					<button type="submit"> 新增 </button>
-				</td>
-			</form>
-		</tr>
-	</table>
+                            </select>
+                        </div>
 
-	<table border=1>
-		<tr> 現有帳號
-			<td> 姓名 </td>
-			<td> 職稱 </td>
-			<td> 學號(帳號) </td>
-			<td> 組別 </td>
-		</tr>
+                        <div class="form-group">
+                            <label> 組別 </label>
+                            <input type="text" name="team">
+                        </div>
+
+                        <div class="form-group submit-area">
+                            <button type="submit">
+                                送出
+                            </button>
+                            <a href="index.php" class="btn back">
+                                回上一頁
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+		<div class="info-box">
+            <div class="info-title"> 現有帳號 </div>
+
+            <div class="info-content">
+                <div class="info-content-table">
+					<table>
+						<thead>
+							<tr>
+								<th> 姓名 </th>
+								<th> 職稱 </th>
+								<th> 學號(帳號) </th>
+								<th> 組別 </th>
+								<th></th>
+							</tr>
+						</thead>
+
+						<tbody>
 	
 <?php
-	if ($_SESSION['user_id']== 5) {
+	if ($_SESSION['user_id'] == 5) {
 		$stmt = $conn->prepare("select * from member where authentication = ? or authentication = ?");
-		$auth = 4;
+		$auth1 = 4;
 		$auth2 = 1;
-		$stmt->bind_param('ii', $auth,$auth2);
+		$stmt->bind_param('ii', $auth1, $auth2);
 	}
 	else if ($_SESSION['user_id'] == 4) {
 		$stmt = $conn->prepare("select * from member where authentication != ? and authentication != ?");
@@ -92,13 +114,13 @@ else {
 			$password = $account_content['password'];
 			$team = $account_content['team'];
 ?>
-		<tr>
-			<td>
+							<tr>
+								<td>
 <?php
 			echo $name
 ?>
-			</td>
-			<td>
+								</td>
+								<td>
 <?php 
 			switch ($authentication) {
 				case 4:
@@ -118,25 +140,29 @@ else {
 					break;
 			}
 ?>
-			</td>
-			<td>
+								</td>
+								<td>
 <?php
 			echo $number
 ?>
-			</td>
-			<td>
+								</td>
+								<td>
 <?php
 			echo $team
 ?>
-			</td>
-			<td>
-				<form action="" method="post" onsubmit="return delete_double_check()">
-					<button type="submit" name="delete_account" value="<?php echo $number ?>"> 刪除 </button>
-				</form>
-			</td>
-		</tr>
+								</td>
+								<td class="td-center">
+									<form action="" method="post" onsubmit="return delete_double_check()">
+										<button type="submit" name="delete_account" value="<?php echo $number ?>">
+											刪除
+									</button>
+									</form>
+								</td>
+							</tr>
+<?php   } ?>
+						</tbody>
+					</table>
 <?php
-		}
 		if (isset($_POST['delete_account'])) {
 	 		$delete_name=htmlspecialchars($_POST['delete_account']);
 	 		$stmt = $conn->prepare("delete from member where number =?");
@@ -145,19 +171,24 @@ else {
 			$stmt->execute();
 			$stmt->close();
 ?>
-		<h3>
+
+					<div class="full-page">
+						<div class="full-page-msg">
+							<p>
 <?php
-			echo "刪除帳號'$delete_name'";
+			echo "刪除帳號 '$delete_name' ......";
 ?>
-		</h3>
+							</p>
+						</div>
+					</div>
 <?php
 		 	header("Refresh:1");
 		} 
 	}
 ?>
-	</table>
+	</div>
+</div>
 
-	<a href="index.php" class="button"> 返回 </a>
 <?php
 }
 ?>

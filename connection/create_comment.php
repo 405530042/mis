@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$article_id = htmlspecialchars($_POST['submit']);
 			$time = date("Y-m-d H:i:s");
 			$stmt = $conn->prepare("insert into comment (name, content, article_id, time) values (?,?,?,?)");
-			$stmt->bind_param('ssis', $name, $content, $article_id, $time);
+			$stmt->bind_param('ssis', $_SESSION['name'], $content, $article_id, $time);
 			$stmt->execute();
 			$stmt->close();
 		 	$url = "?article_id=$article_id";
