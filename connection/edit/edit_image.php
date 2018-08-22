@@ -1,10 +1,11 @@
 <?php 
-require('../connect/session.php');
+require('../connect/connect.php');
+require('../connect/function.php');
 require('../template/header.php');
-
-if ($user_id != 3) {
+session_start();
+if ($_SESSION['user_id'] != 3) {
 	echo '權限不足';
-	header("refresh:0.75; url=./index.php");
+	header("refresh:0.75; url=../index.php");
 }
 else {
 	$stmt = $conn->prepare("select * from direction where status = 1");

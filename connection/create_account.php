@@ -1,6 +1,6 @@
 <?php
-require('connect/session.php');
-
+require('connect/connect.php');
+session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!isset($_POST['create_name']) || trim($_POST['create_name']) == '') {
         echo 'name_empty';
@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         	header("refresh:1.25; url=./create_member.php");
        	}
         else {
-            if ($user_id == 5) {
+            if ($_SESSION['user_id'] == 5) {
                 if (htmlspecialchars($_POST['carrer']) != 1 && 
                     htmlspecialchars($_POST['carrer']) != 2 && 
                     htmlspecialchars($_POST['carrer']) != 3 && 
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("location: ./connect/error.php");
                 }
             }
-            else if ($user_id == 4) {
+            else if ($_SESSION['user_id']== 4) {
                 if (htmlspecialchars($_POST['carrer']) != 1 && 
                     htmlspecialchars($_POST['carrer']) != 2 && 
                     htmlspecialchars($_POST['carrer']) != 3) {

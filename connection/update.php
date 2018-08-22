@@ -1,12 +1,13 @@
 <?php 
-require('./connect/session.php');
+require('./connect/connect.php');
+session_start();
 require('./template/header.php');
 require('timer.php');
-if ($user_id != 3) {
+if ($_SESSION['user_id']  != 3) {
 	echo '權限不足';
 	header("refresh:0.75; url=./index.php");
 }
-else if($check==1){
+else if($_SESSION['check']==1){
 	echo '該隊伍已上傳檔案';
 	header("refresh:0.75; url=./index.php");
 }

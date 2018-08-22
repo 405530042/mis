@@ -1,5 +1,5 @@
 <?php
-require('./connect/session.php');
+require('./connect/connect.php');
 require('./template/header.php');
 require('./template/nav.php');
 require('timer.php');
@@ -171,7 +171,7 @@ else {
 <?php
     $query = mysqli_query($conn, 'select * from update_data order by id desc');
     $rows = mysqli_num_rows($query);
-    if ($row === 0) {
+    if ($rows === 0) {
 ?>
                 <h1>尚無資料</h1>
 <?php

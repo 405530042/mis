@@ -1,9 +1,10 @@
 <?php 
-include('./connect/session.php');
+include('./connect/connect.php');
+include('./connect/function.php');
 require('./template/header.php');
 require('./template/nav.php');
-
-if ($user_id != 3 && $user_id != 2) {
+session_start();
+if ($_SESSION['user_id'] != 3 && $_SESSION['user_id'] != 2) {
 	ob_start();
     echo '權限不足';
     header("refresh:2; url=./index.php");
@@ -11,12 +12,43 @@ if ($user_id != 3 && $user_id != 2) {
 }
 else{
 	?>
-<form action="" method="POST">
-	<span>舊密碼<input type="password" name="old" required></span>
-	<span>新密碼<input type="password" name="new" required></span>
-	<span>確認新密碼<input type="password" name="check" required></span>
-	<button type="submit" name="change_password">確認</button>
-</form>
+<div class="pre-container">
+    <div class="container">
+        <div class="info-box">
+            <div class="info-title"> 更改密碼 </div>
+
+            <div class="info-content">
+                <div class="info-content-form">
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <label> 舊密碼 </label>
+                            <input type="password" name="old" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label> 新密碼 </label>
+                            <input type="password" name="new" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> 確認新密碼 </label>
+                            <input type="password" name="check" required>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" name="change_password">
+                                確認
+                            </button>
+                            <a href="index.php" class="btn back">
+                                回上一頁
+                            </a>
+                        </div> 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 	<?php
 }
 

@@ -1,5 +1,6 @@
 <?php
-require('./connect/session.php');
+require('./connect/connect.php');
+session_start();
 define("filesplace", "./");
 require('timer.php');
 if (is_uploaded_file($_FILES['file']['tmp_name'])) {
@@ -26,8 +27,6 @@ if (is_uploaded_file($_FILES['file']['tmp_name'])) {
                 $stmt->execute();
                 $result = $stmt->get_result();
                 $stmt->close();
-                echo $_POST['direction'];
-                echo $name = htmlspecialchars($_POST['name']);
                 if (mysqli_num_rows($result) != 1) {
                     $_SESSION['error']=7;
                             header("location: ./connect/error.php");
@@ -50,12 +49,12 @@ if (is_uploaded_file($_FILES['file']['tmp_name'])) {
                             $time = date("Y-m-d h:i:sa");
                             $stmt = $conn->prepare("insert into update_data(direction,file_name,intro,team,time,image) values(?,?,?,?,?,?)");
                             $params = $name;
-                            $stmt->bind_param('ssssss',$direction ,$name, $introduction, $team, $time,$id);
+                            $stmt->bind_param('ssssss',$direction ,$name, $introduction, $_SESSION['team'], $time,$_SESSION['id']);
                             $stmt->execute();
                             $stmt->close();
                             $check = $conn->prepare("update member set update_check = ? where team = ?");
                             $success = 1;
-                            $check->bind_param('is',$success,$team);
+                            $check->bind_param('is',$success,$_SESSION['team']);
                             $check->execute();
                             $check->close();
                             $_SESSION['error'] = 8;

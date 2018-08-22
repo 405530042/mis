@@ -1,7 +1,9 @@
+<?php session_start(); 
+date_default_timezone_set("Asia/Taipei");?>
 <div class="nav">
     <ul>
 <?php
-if ($user_id == 0) {
+if ($_SESSION['user_id'] == 0) {
 ?>
         <span></span>
 	    <span>
@@ -15,7 +17,7 @@ if ($user_id == 0) {
 <?php
 }
 else {
-    if ($user_id == 2) {
+    if ($_SESSION['user_id']== 2) {
 ?>
         <span>
             <li>
@@ -27,7 +29,7 @@ else {
         <span>
          <li>
                 <a>
-                    <?php echo $name  ?>
+                    <?php echo $_SESSION['name'];  ?>
                 </a>
             </li>
             <li>
@@ -44,7 +46,7 @@ else {
 
 <?php
     }
-	else if ($user_id == 3) {
+	else if ($_SESSION['user_id'] == 3) {
 ?>
         <span>
     	    <li>
@@ -61,7 +63,7 @@ else {
         <span>
            <li>
                 <a>
-                    <?php echo $name  ?>
+                   <?php echo $_SESSION['name'];  ?>
                 </a>
             </li>
                 <li>
@@ -77,7 +79,7 @@ else {
         </span>
 <?php
 	}
-    else if ($user_id == 4) {
+    else if ($_SESSION['user_id'] == 4) {
 ?>
         <span>
 	        <li>
@@ -94,7 +96,7 @@ else {
         <span>
         <li>
                 <a>
-                    <?php echo $name  ?>
+                     <?php echo $_SESSION['name'];  ?>
                 </a>
             </li>
 	        <li>
@@ -105,7 +107,7 @@ else {
         </span>
 <?php
 	}
-    else if ($user_id == 1) {
+    else if ($_SESSION['user_id']== 1) {
 ?>
             <span>
             <li>
@@ -117,7 +119,7 @@ else {
         <span>
            <li>
                 <a>
-                    <?php echo $name  ?>
+                     <?php echo $_SESSION['name'];  ?>
                 </a>
             </li>
             <li>
@@ -128,7 +130,7 @@ else {
         </span>
 <?php
     }
-    else if ($user_id == 5) {
+    else if ($_SESSION['user_id'] == 5) {
 ?>
         <span>
             <li>
@@ -150,7 +152,7 @@ else {
         <span>
             <li>
                 <a>
-                    <?php echo $name  ?>
+                    <?php echo $_SESSION['name'];  ?>
                 </a>
             </li>
             <li>

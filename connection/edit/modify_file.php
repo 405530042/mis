@@ -1,8 +1,8 @@
 <?php 
-require('../connect/session.php');
+require('../connect/connect.php');
 require('../template/header.php');
-
-if ($user_id != 3) {
+session_start();
+if ($_SESSION['user_id'] != 3) {
 	echo '權限不足';
 	header("refresh:2; url=./view.php");
 }

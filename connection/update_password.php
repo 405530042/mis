@@ -1,5 +1,6 @@
 <?php
-include('./connect/session.php');
+include('./connect/connect.php');
+session_start();
 if(isset($_POST['change_password'])){
     if(empty($_POST['old'])||empty($_POST['new'])||empty($_POST['check'])){
         $errorchange="欄位為空";

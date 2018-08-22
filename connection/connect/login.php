@@ -1,5 +1,6 @@
 <?php
-require('session.php');
+require('connect.php');
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!isset($_POST['password']) || trim($_POST['password']) == '') {
@@ -18,19 +19,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $stmt->get_result();
         $stmt->close();
         $rows = mysqli_num_rows($result);
-        echo $rows;
-
+        //echo $rows;
+        $member=mysqli_fetch_assoc($result);
         if ($rows == 1) {
-            ob_start();
-            $_SESSION['login_user'] = $user;
+            $_SESSION['login_user'] = $member['id'];
+             $_SESSION['account'] = $member['number'];
+            echo $_SESSION['login_user'];
             header("Location: ./success.php");
-            ob_end_flush();
         }
         else {
-            ob_start();
             $_SESSION['error'] = 1;
+            echo $rows;
             header("Location: ./error.php");
-            ob_end_flush();
         }
         
         mysqli_close($conn);

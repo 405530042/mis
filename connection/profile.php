@@ -1,22 +1,22 @@
 <?php 
-include('./connect/session.php');
+include('./connect/connect.php');
 require('./template/header.php');
 require('./template/nav.php');
-
-if ($user_id != 3 && $user_id != 2) {
+require('./connect/function.php');
+if ($_SESSION['user_id'] != 3 && $_SESSION['user_id']!= 2) {
     echo '權限不足';
     header("refresh:2; url=./index.php");
 }
 else {
     $query_teamname = $conn->prepare("select * from member where team = ?");
-    $params = $team;
+    $params = $_SESSION['team'];
     $query_teamname->bind_param('s', $params);
     $query_teamname->execute();
     $result = $query_teamname->get_result();
     $query_teamname->close();
 
     $query = $conn->prepare("select * from update_data where team = ?");
-    $params = $team;
+    $params = $_SESSION['team'];
     $query->bind_param('s',$params);
     $query->execute();
     $result2 = $query->get_result();
@@ -79,7 +79,7 @@ else {
                             </label>
                         </div>
 <?php
-        if ($user_id == 3) {
+        if ($_SESSION['user_id'] == 3) {
 ?> 
                         <div class="form-group">
                             <button type="submit" name="edit" value="<?php echo $profile['id'] ?>">

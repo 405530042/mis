@@ -1,5 +1,6 @@
 <?php
 session_start();
+	if(isset($_SESSION['error'])){
 switch ($_SESSION['error']) {
 	case 1:
 	ob_start();
@@ -52,10 +53,8 @@ switch ($_SESSION['error']) {
 	break;
 
 	case 8:
-	ob_start();
         echo '上傳成功';
         header("refresh:1.25; url=../index.php");
-        ob_end_flush();
     break;
 
     case 9:
@@ -80,35 +79,35 @@ switch ($_SESSION['error']) {
 	break;
 
 	case 12:
-	ob_start();
 	    echo '新密碼過長';
 		header("refresh:1.25; url=../change_password.php");
-		ob_end_flush();
 	break;
 
 	case 13:
-	ob_start();
+
 	    echo '無此權限';
 		header("refresh:1.25; url=../create_member.php");
 		ob_end_flush();
 	break;
 
 	 case 20:
-	 ob_start();
 	    echo '發生錯誤，請再試一次';
 	    header("refresh:1.25; url=../edit/edit_image.php");
-	    ob_end_flush();
     break;
 
 	default:
-	ob_start();
 		echo "發生錯誤請重新登入";
 		echo $error;
 		session_destroy();
 		header("refresh:1.25; url=../login.html");
-		ob_end_flush();
 	break;
 }
-
+}
+else{
+	echo "發生錯誤請重新登入";
+		echo $error;
+		session_destroy();
+		header("refresh:1.25; url=../login.html");
+}
 
 ?>

@@ -1,8 +1,8 @@
 <?php 
-include('./connect/session.php');
+include('./connect/connect.php');
 require('./template/header.php');
-
-if ($user_id != 4 && $user_id != 5) {
+session_start();
+if ($_SESSION['user_id']!= 4 && $_SESSION['user_id'] != 5) {
 	echo '權限不足';
 	header("refresh:2; url=./index.php");
 }
@@ -31,12 +31,12 @@ else {
 				</td>
 				<td>
 					<select name="carrer">
-					<?php if ($user_id == 4) { ?>
+					<?php if ($_SESSION['user_id'] == 4) { ?>
 						<option value="2"> 學生(一般) </option>
 						<option value="3"> 學生(組長) </option>
 						<?php } ?>
 						<option value="1"> 老師 </option>
-<?php if ($user_id == 5) { ?>
+<?php if ($_SESSION['user_id']== 5) { ?>
 						<option value="4"> 管理員 </option>
 <?php } ?>
 					</select>
@@ -60,13 +60,13 @@ else {
 		</tr>
 	
 <?php
-	if ($user_id == 5) {
+	if ($_SESSION['user_id']== 5) {
 		$stmt = $conn->prepare("select * from member where authentication = ? or authentication = ?");
 		$auth = 4;
 		$auth2 = 1;
 		$stmt->bind_param('ii', $auth,$auth2);
 	}
-	else if ($user_id == 4) {
+	else if ($_SESSION['user_id'] == 4) {
 		$stmt = $conn->prepare("select * from member where authentication != ? and authentication != ?");
 		$auth1 = 4;
 		$auth2 = 5;
@@ -138,7 +138,7 @@ else {
 <?php
 		}
 		if (isset($_POST['delete_account'])) {
-	 		$delete_name=xss_clean($_POST['delete_account']);
+	 		$delete_name=htmlspecialchars($_POST['delete_account']);
 	 		$stmt = $conn->prepare("delete from member where number =?");
 			$params = $delete_name;
 			$stmt->bind_param('i', $params);

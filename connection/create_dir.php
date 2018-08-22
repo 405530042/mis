@@ -1,12 +1,12 @@
 <?php
-require('./connect/session.php');
+require('./connect/connect.php');
 require('./template/header.php');
 require('./template/nav.php');
 require('timer.php');
 ?>
 <?php
 
-if ($user_id != 5) {
+if ($_SESSION['user_id'] != 5) {
 	echo '權限不足';
 	header("refresh:2; url=./index.php");
 }
@@ -15,28 +15,50 @@ if ($user_id != 5) {
 
 	<div class="pre-container">
 		<div class="container">
-			<form action="" method="POST">
-				<input type="text" name="create_dir" placeholder="新增資料夾名稱" required>
-				<label for="meeting">
-				<br>
-				<br>
-				繳交期限：</label><input name="deadline" type="datetime-local" id="bookdate" value="<?php echo date("Y-m-d\TH:i"); ?>" min ="<?php echo date("Y-m-d\TH:i"); ?>">
-				<br>
-				<button name="create_direction" type="submit"> 送出 </button>
-			</form>
-			
-			<br>
+			<div class="info-box">
+				<div class="info-title"> 新增作品資料夾 </div>
 
-			<table border=1>
-				<thead>
-					<tr>
-						<th> 進行中的資料夾 </th>
-						<th> 刪除路徑</th>
-					</tr>
-				</thead>
+				<div class="info-content">
+                    <div class="info-content-form">
+                        <form action="" method="POST">
+                            <div class="form-group">
+                                <label> 資料夾名稱 </label>
+                                <input type="text" name="create_dir" required>
+                            </div>
 
+                            <div class="form-group">
+                                <label for="meeting"> 繳交期限 </label>
+                                <input name="deadline" type="datetime-local" id="bookdate" value="<?php echo date(" Y-m-d\TH:i "); ?>" min="<?php echo date(" Y-m-d\TH:i "); ?>">
+                            </div>
 
-				<tbody>
+                            <div class="form-group submit-area">
+                                <button name="create_direction" type="submit">
+                                    送出
+                                </button>
+                                <a href="index.php" class="btn back">
+                                    回上一頁
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-title"> 已存在資料夾 </div>
+
+                <div class="info-content">
+                    <div class="info-content-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th> 進行中的資料夾 </th>
+                                    <th> 繳交期限 </th>
+                                    <th> 刪除路徑</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
 <?php
 		$stmt = $conn->prepare("select * from direction where status = 1");
         $stmt->execute();
@@ -45,43 +67,43 @@ if ($user_id != 5) {
         $rows = mysqli_num_rows($result);
 
         if ($rows === 0) {
-        	echo '<tr><td> 尚無資料夾 </td></tr>';
+        	echo '<tr><td> 尚無資料夾 </td><td></td></tr>';
        	}
        	else {
-       		?>
-       		<form action="" method="POST" onsubmit="return delete_double_check()">
-       		<?php
        		for ($i = 0; $i < $rows; $i++){
        			$file_dir=mysqli_fetch_assoc($result);
        			echo '<tr>
        					<td>' . $file_dir['dir_name'] . '</td>
-       					<td>
-       						<button name="delete_dir" 
-       								type="submit" 
-       								value="' . $file_dir['id'] . '" 
-       								>
-       							刪除
-       						</button>
+       					<td class="td-center">' . $file_dir['deadline'] . '</td>
+						<td class="td-center">
+						   	<form action="" method="POST" onsubmit="return delete_double_check()">
+       							<button name="delete_dir" 
+       									type="submit" 
+       									value="' . $file_dir['id'] . '">
+       								刪除
+								</button>
+							</form>
        					</td>
        				</tr>';
-       	}
+       		}
        	}
 ?>
-			</form>
-				</tbody>
-			</table>
+							</tbody>
+						</table>
+                    </div>
+                </div>
 
-			<table border=1>
-				<thead>
-					<tr>
-						<th> 已過繳交日期的資料夾 </th>
-						<th> 繳交日期 </th>
-					</tr>
+                <div class="info-content">
+                    <div class="info-content-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th> 已過繳交日期的資料夾 </th>
+                                    <th> 繳交日期</th>
+                                </tr>
+                            </thead>
 
-				</thead>
-
-
-				<tbody>
+                            <tbody>
 <?php
 		$stmt = $conn->prepare("select * from direction where status = 0");
         $stmt->execute();
@@ -90,26 +112,23 @@ if ($user_id != 5) {
         $rows = mysqli_num_rows($result);
 
         if ($rows === 0) {
-        	echo '<tr><td> 尚無資料夾 </td></tr>';
+        	echo '<tr><td> 尚無資料夾 </td><td></td></tr>';
        	}
        	else {
-       		?>
-       		<form action="" method="POST" onsubmit="return delete_double_check()">
-       		<?php
        		for ($i = 0; $i < $rows; $i++){
        			$file_dir=mysqli_fetch_assoc($result);
        			echo '<tr>
        					<td>' . $file_dir['dir_name'] . '</td>
-       					<td>
- 							'. $file_dir['deadline'] .  '</td>
-       				 </tr>';
-       	}
+       					<td class="td-center">' . $file_dir['deadline'] . '</td>
+       				</tr>';
+       		}
        	}
 ?>
-			</form>
-				</tbody>
-			</table>
-    		<a href="index.php" class="button"> 返回 </a>
+							</tbody>
+						</table>
+                    </div>
+                </div>
+            </div>
 		</div>
 	</div>
 

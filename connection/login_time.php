@@ -1,5 +1,5 @@
 <?php 
-include('./connect/session.php');
+include('./connect/connect.php');
 require('./template/header.php');
 require('./template/nav.php');
 ?>
@@ -8,7 +8,7 @@ require('./template/nav.php');
         <div class="container">
 
 <?php
-if ($user_id != 4 && $user_id != 5) {
+if ($_SESSION['user_id'] != 4 && $_SESSION['user_id']!= 5) {
 	echo '權限不足';
 	header("refresh:2; url=./index.php");
 }
@@ -32,7 +32,7 @@ else {
                 <th> 登入時間 </th>
             </tr>
 <?php
-        if ($user_id == 4) {
+        if ($_SESSION['user_id']== 4) {
             $stmt = $conn->prepare("select * from login_time where auth !=? and auth !=? and auth !=? ");
             $auth5 = 5;
             $auth4 = 4;
@@ -66,7 +66,7 @@ else {
 <?php
             }
         }
-        else if ($user_id == 5) {//this
+        else if ($_SESSION['user_id'] == 5) {//this
             $stmt = $conn->prepare("select * from login_time where auth =? or auth =? ");
             $auth4 = 4;
             $auth1 = 1;

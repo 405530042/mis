@@ -1,10 +1,11 @@
 <?php 
-include('../connect/session.php');
+include('../connect/connect.php');
 require('../template/header.php');
-
-if ($user_id != 3) {
+include('../connect/function.php');
+session_start();
+if ($_SESSION['user_id'] != 3) {
 	echo '權限不足';
-	header("refresh:2; url=./view.php");
+	header("refresh:2; url=../index.php");
 }
 else {
 	$id = $_SESSION['article_id'];

@@ -1,8 +1,9 @@
 <?php
-require('./connect/session.php');
+require('./connect/connect.php');
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	if (!isset($user_id) || trim($user_id) == '') {
+	if (!isset($_SESSION['user_id']) || trim($_SESSION['user_id']) == '') {
 		echo '權限不足';
 		header("refresh:2; url=./index.php");
 	}
