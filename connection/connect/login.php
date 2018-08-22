@@ -21,12 +21,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo $rows;
 
         if ($rows == 1) {
+            ob_start();
             $_SESSION['login_user'] = $user;
             header("Location: ./success.php");
+            ob_end_flush();
         }
         else {
+            ob_start();
             $_SESSION['error'] = 1;
             header("Location: ./error.php");
+            ob_end_flush();
         }
         
         mysqli_close($conn);

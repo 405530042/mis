@@ -4,8 +4,10 @@ require('./template/header.php');
 require('./template/nav.php');
 
 if ($user_id != 3 && $user_id != 2) {
+	ob_start();
     echo '權限不足';
     header("refresh:2; url=./index.php");
+    ob_end_flush();
 }
 else{
 	?>

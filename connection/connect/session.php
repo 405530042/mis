@@ -52,19 +52,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("Location: ./connect/error.php");
     }
                 else{
-            $pd = htmlspecialchars($_POST['old']);
-            $password = htmlspecialchars($_POST['new']);
-             $password = 'a'. htmlspecialchars($_POST['password']);
+            $pd ='a'. htmlspecialchars($_POST['old']);
+            $password ='a'. htmlspecialchars($_POST['new']);
+            $change_old = 'a'. hash('md5',hash('sha256',$pd));
+            $_SESSION['pd']=$change_old ;
             $encrypt ='a'. hash('md5',hash('sha256',$password));
             $user_id = $row['id'];
             $old_pd = $row['password'];
-            if($old_pd == $pd){
+            $_SESSION['old_pd'] = $row['password'];
+            if($old_pd == $change_old){
                  $stmt = $conn->prepare("update member set password = ? where id = ?");
                 $stmt->bind_param('si', $encrypt, $user_id);
                 $stmt->execute();
                 $stmt->close();
                 $_SESSION['error']=2;
-                header("Location: ./connect/error.php");
+                 header("Location: ./connect/error.php");
             }
             else{
                 $_SESSION['error']=3;

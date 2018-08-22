@@ -8,7 +8,6 @@ $stmt = $conn->prepare("select * from direction where status = 1");
     for($i=0;$i<mysqli_num_rows($result);$i++){
      $row = mysqli_fetch_assoc($result);
      $deadline=strtotime($row['deadline']);
-     echo $deadline;
      if($deadline<=$today){
     $stmt = $conn->prepare("UPDATE direction SET status = 0 where id =?");
     $direction_id=$row['id'];
