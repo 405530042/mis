@@ -9,7 +9,7 @@ if ($_SESSION['user_id'] == 0) {
         <span></span>
 	    <span>
             <li>
-                <a href="./login.html">
+                <a href="../login.html">
                     登入
                 </a>
             </li>
@@ -22,7 +22,7 @@ else {
 ?>
         <span>
             <li>
-                <a href="./profile.php">
+                <a href="../profile.php">
                     隊伍檔案
                 </a>
             </li>
@@ -34,12 +34,12 @@ else {
                 </a>
             </li>
             <li>
-                <a href="./change_password.php">
+                <a href="../change_password.php">
                     修改密碼
                 </a>
             </li>
             <li>
-                <a href="./connect/logout.php">
+                <a href="../connect/logout.php">
                     登出
                 </a>
             </li>
@@ -51,12 +51,12 @@ else {
 ?>
         <span>
     	    <li>
-                <a href="./profile.php">
+                <a href="../profile.php">
                     隊伍檔案
                 </a>
             </li>
     	    <li>
-                <a href="./update.php">
+                <a href="../update.php">
                     上傳檔案
                 </a>
             </li>
@@ -68,12 +68,12 @@ else {
                 </a>
             </li>
                 <li>
-                <a href="./change_password.php">
+                <a href="../change_password.php">
                     修改密碼
                 </a>
             </li>
 	        <li>
-                <a href="./connect/logout.php">
+                <a href="../connect/logout.php">
                     登出
                 </a>
             </li>
@@ -84,12 +84,12 @@ else {
 ?>
         <span>
 	        <li>
-                <a href="./login_time.php">
+                <a href="../login_time.php">
                     查看登入狀況
                 </a>
             </li>
 	        <li>
-                <a href="./create_member.php">
+                <a href="../create_member.php">
                     設定登入人員名單
                 </a>
             </li>
@@ -101,7 +101,7 @@ else {
                 </a>
             </li>
 	        <li>
-                <a href="./connect/logout.php">
+                <a href="../connect/logout.php">
                     登出
                 </a>
             </li>
@@ -112,7 +112,7 @@ else {
 ?>
             <span>
             <li>
-                <a href="./score.php">
+                <a href="../score.php">
                     評分成績
                 </a>
             </li>
@@ -124,7 +124,7 @@ else {
                 </a>
             </li>
             <li>
-                <a href="./connect/logout.php">
+                <a href="../connect/logout.php">
                     登出
                 </a>
             </li>
@@ -135,17 +135,17 @@ else {
 ?>
         <span>
             <li>
-                <a href="./login_time.php">
+                <a href="../login_time.php">
                     查看登入狀況
                 </a>
             </li>
             <li>
-                <a href="./create_member.php">
+                <a href="../create_member.php">
                     設定登入人員名單
                 </a>
             </li>
             <li>
-                <a href="./create_dir.php">
+                <a href="../create_dir.php">
                     新增作品資料夾
                 </a>
             </li>
@@ -157,7 +157,7 @@ else {
                 </a>
             </li>
             <li>
-                <a href="./connect/logout.php">
+                <a href="../connect/logout.php">
                     登出
                 </a>
             </li>
@@ -172,7 +172,7 @@ else
      <span></span>
         <span>
             <li>
-                <a href="./login.html">
+                <a href="../login.html">
                     登入
                 </a>
             </li>

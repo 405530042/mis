@@ -1,40 +1,40 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-        <div id="rec" style="position:absolute;left: 100px;top: 100px; width: 50px;height: 50px;background: red;"></div>
-    </body>
-    <script type="text/javascript">
-        //获取div元素
-    var rec = document.getElementById("rec")
-    var down = false;
-    var dx = 0;
-    var dy = 0;
-    var sx = 0;
-    var sy = 0;
-    document.onmousemove = function(e){
-        if (down) {
-            var ev = e || event;
-            rec.style.top = ev.clientY - (dy - sy) + 'px';
-            rec.style.left = ev.clientX - (dx - sx) + 'px';
-        }
-    }
-    rec.onmousedown = function(){
-        dx = event.clientX;
-        dy = event.clientY;
-        sx = parseInt(rec.style.left);
-        sy = parseInt(rec.style.top);
-        if (!down) {
-            down  = true;
-        }
-    }
-    document.onmouseup = function(){
-        if (down) {
-            down = false;
-        }
-    }
-    </script>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+    <body>
+        <div id="rec" style="position:absolute;left: 100px;top: 100px; width: 50px;height: 50px;background: red;"></div>
+    </body>
+    <script type="text/javascript">
+        //获取div元素
+    var rec = document.getElementById("rec")
+    var down = false;
+    var dx = 0;
+    var dy = 0;
+    var sx = 0;
+    var sy = 0;
+    document.onmousemove = function(e){
+        if (down) {
+            var ev = e || event;
+            rec.style.top = ev.clientY - (dy - sy) + 'px';
+            rec.style.left = ev.clientX - (dx - sx) + 'px';
+        }
+    }
+    rec.onmousedown = function(){
+        dx = event.clientX;
+        dy = event.clientY;
+        sx = parseInt(rec.style.left);
+        sy = parseInt(rec.style.top);
+        if (!down) {
+            down  = true;
+        }
+    }
+    document.onmouseup = function(){
+        if (down) {
+            down = false;
+        }
+    }
+    </script>
 </html>

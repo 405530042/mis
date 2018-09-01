@@ -8,12 +8,31 @@ require('timer.php');
 
 if ($_SESSION['user_id'] != 5) {
 	echo '權限不足';
-	header("refresh:2; url=./index.php");
+// 	header("refresh:2; url=./index.php");
+?>
+			<script type="text/javascript">
+			    setTimeout(() => {
+			        window.location ="./index.php";
+			    }, 2000);
+            </script>
+<?php
 }
 	else{
 ?>
 
 	<div class="pre-container">
+        <header> 黏仔雲端 </header>
+        <div class="page-hint">
+            <div> 新增作品資料夾 </div>
+            <div>
+                <a href="./index.php">
+                    回上一頁
+                    <img src="./img/back.png" alt="back">
+                </a>
+            </div>
+        </div>
+        <div class="hr"></div>
+            
 		<div class="container">
 			<div class="info-box">
 				<div class="info-title"> 新增作品資料夾 </div>
@@ -35,9 +54,6 @@ if ($_SESSION['user_id'] != 5) {
                                 <button name="create_direction" type="submit">
                                     送出
                                 </button>
-                                <a href="index.php" class="btn back">
-                                    回上一頁
-                                </a>
                             </div>
                         </form>
                     </div>
@@ -77,6 +93,7 @@ if ($_SESSION['user_id'] != 5) {
        					<td class="td-center">' . $file_dir['deadline'] . '</td>
 						<td class="td-center">
 						   	<form action="" method="POST" onsubmit="return delete_double_check()">
+						   	    <input name="delete_dir_name" type="hidden" value="' . $file_dir['dir_name'] . '" />
        							<button name="delete_dir" 
        									type="submit" 
        									value="' . $file_dir['id'] . '">
@@ -137,7 +154,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if(isset($_POST['create_direction'])){
 		if (!isset($_POST['create_dir']) || trim($_POST['create_dir']) == '') {
 			echo 'dir_name_empty';
-			header("refresh:1.5; url=./create_member.php");
+// 			header("refresh:1.5; url=./create_member.php");
+?>
+			<script type="text/javascript">
+			    setTimeout(() => {
+			        window.location ="./create_member.php";
+			    }, 1500);
+            </script>
+<?php
 		}
 		else {
 			$deadline = htmlspecialchars($_POST['deadline']);
@@ -146,30 +170,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$path_img = './update/img/' . $create_dir;
 
 			if (!file_exists($path_pdf)&&!file_exists($path_img)) {
+	
 				mkdir($path_pdf);
 				mkdir($path_img);
-
 				$stmt = $conn->prepare("insert into direction (dir_name,deadline) values (?,?)");
 				$stmt->bind_param('ss', $create_dir,$deadline);
 				$stmt->execute();
 				$stmt->close();
-
-				echo '資料夾新增成功';
-				header("refresh:1.5; url=./create_dir.php");
+				?>
+				<!--header("Location:./create_dir.php");-->
+				<script type="text/javascript"> 
+                   window.location ="./create_dir.php";
+                </script>
+				<?php
 			}
 			else {
 				echo '資料夾已經存在';
-				header("refresh:1.5; url=./create_dir.php");
+				// header("refresh:1.25; url=./create_dir.php");
+?>
+			<script type="text/javascript">
+			    setTimeout(() => {
+			        window.location ="./create_dir.php";
+			    }, 1250);
+            </script>
+<?php
 			}
 		}
 	}
 	else if(isset($_POST['delete_dir'])) {
 		$id = htmlspecialchars($_POST['delete_dir']);
+		$dir_name = htmlspecialchars($_POST['delete_dir_name']);
 		$stmt = $conn->prepare("update direction set status = 0 where id = ?");
 		$stmt->bind_param('i', $id);
 		$stmt->execute();
 		$stmt->close();
-		header("refresh:0;");
+// 		header("refresh:0;");
+?>
+    <div class="full-page">
+        <div class="full-page-msg">
+            <p>
+<?php
+                echo "即將刪除資料夾：$dir_name ......";
+?>
+            </p>
+        </div>
+    </div>
+
+	<script type="text/javascript">
+	   setTimeout(() => {
+	        window.location ="./create_dir.php";
+	    }, 1000);
+    </script>
+<?php
 	}
 }
 }
